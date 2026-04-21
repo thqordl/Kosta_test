@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="flex items-center justify-between px-4 py-4">
+        <button id="mobileMenuBtn" onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+            <i class="fas fa-bars w-6 h-6"></i>
+        </button>
+
+        <div class="flex items-center gap-4 ml-auto">
+            <button class="p-2 rounded-lg hover:bg-gray-100 relative">
+                <i class="fas fa-bell w-6 h-6"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+
+            <div class="text-right">
+                <p class="text-sm font-medium">김지점장</p>
+                <p class="text-xs text-gray-500">manager1</p>
+            </div>
+
+            <div class="w-10 h-10 rounded-full bg-[#00853D] flex items-center justify-center text-white">
+                김
+            </div>
+        </div>
+    </div>
+</header>
+<script>
+if (typeof window.toggleSidebar !== "function") {
+  window.toggleSidebar = function() {};
+}
+</script>

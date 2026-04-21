@@ -1,0 +1,148 @@
+<%@ page pageEncoding="UTF-8" %>
+<%
+    String cp = request.getContextPath();
+    String uri = request.getRequestURI();
+
+    boolean homeActive = uri.endsWith("/hq/main/home.jsp");
+
+    boolean branchStockGroup = uri.contains("/hq/branch_stock/");
+    boolean branchInventoryActive = uri.endsWith("/hq/branch_stock/branch-inventory-status.jsp");
+    boolean lossManagementActive = uri.endsWith("/hq/branch_stock/loss-management.jsp");
+
+    boolean warehouseGroup = uri.contains("/hq/warehouse/");
+    boolean warehouseReceiveActive = uri.endsWith("/hq/warehouse/warehouse-receive.jsp");
+    boolean warehouseReleaseActive = uri.endsWith("/hq/warehouse/warehouse-release.jsp");
+    boolean warehouseExpiryActive = uri.endsWith("/hq/warehouse/warehouse-expiry-tracking.jsp");
+    boolean warehouseItemsActive = uri.endsWith("/hq/warehouse/warehouse-items.jsp");
+
+    boolean placeOrderGroup = uri.contains("/hq/place_order/");
+    boolean orderDashboardActive = uri.endsWith("/hq/place_order/order-requests-dashboard.jsp");
+    boolean orderManagementActive = uri.endsWith("/hq/place_order/order-requests-management.jsp");
+    boolean orderLimitsActive = uri.endsWith("/hq/place_order/order-item-limits.jsp");
+
+    boolean salesGroup = uri.contains("/hq/sales/");
+    boolean salesDetailActive = uri.endsWith("/hq/sales/sales-detail.jsp");
+    boolean salesRankingActive = uri.endsWith("/hq/sales/sales-ranking.jsp");
+    boolean salesHeadquartersActive = uri.endsWith("/hq/sales/sales-headquarters.jsp");
+
+    boolean deliveryGroup = uri.contains("/hq/delivery/");
+    boolean deliveryInquiryActive = uri.endsWith("/hq/delivery/delivery-inquiry.jsp");
+    boolean dispatchManagementActive = uri.endsWith("/hq/delivery/dispatch-management.jsp");
+    boolean driverVehicleActive = uri.endsWith("/hq/delivery/driver-vehicle-management.jsp");
+
+    boolean recipeActive = uri.endsWith("/hq/recipe/recipe-management.jsp");
+
+    boolean supportGroup = uri.contains("/hq/support/");
+    boolean branchSearchActive = uri.endsWith("/hq/support/branch-search.jsp");
+    boolean hqNoticesActive = uri.endsWith("/hq/support/headquarters-notices.jsp");
+    boolean hqInquiriesActive = uri.endsWith("/hq/support/headquarters-inquiries.jsp");
+
+    boolean hrGroup = uri.contains("/hq/hr/");
+    boolean hrInquiryActive = uri.endsWith("/hq/hr/hr-employee-inquiry.jsp");
+    boolean permissionsActive = uri.endsWith("/hq/hr/permissions-account-management.jsp");
+    boolean employeeScheduleActive = uri.endsWith("/hq/hr/employee-schedule-management.jsp");
+%>
+
+<nav class="p-4 space-y-1">
+    <a href="<%= cp %>/hq/main/home.jsp" class="flex items-center gap-3 px-3 py-2.5 rounded-lg <%= homeActive ? "bg-[#00853D] text-white font-medium" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <i class="fas fa-home w-5 h-5"></i>
+        <span class="text-sm">홈</span>
+    </a>
+
+    <button onclick="toggleMenu(this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg <%= branchStockGroup ? "bg-gray-100 text-gray-700" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-warehouse w-5 h-5"></i>
+            <span class="text-sm">지점 재고 관리</span>
+        </div>
+        <i class="fas <%= branchStockGroup ? "fa-chevron-down" : "fa-chevron-right" %> w-4 h-4"></i>
+    </button>
+    <div class="submenu <%= branchStockGroup ? "" : "hidden" %> ml-4 mt-1 space-y-1">
+        <a href="<%= cp %>/hq/branch_stock/branch-inventory-status.jsp" class="block px-4 py-2 rounded-lg text-sm <%= branchInventoryActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">지점재고 현황</a>
+        <a href="<%= cp %>/hq/branch_stock/loss-management.jsp" class="block px-4 py-2 rounded-lg text-sm <%= lossManagementActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">지점 손실 관리</a>
+    </div>
+
+    <button onclick="toggleMenu(this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg <%= warehouseGroup ? "bg-gray-100 text-gray-700" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-box-open w-5 h-5"></i>
+            <span class="text-sm">물류창고 관리</span>
+        </div>
+        <i class="fas <%= warehouseGroup ? "fa-chevron-down" : "fa-chevron-right" %> w-4 h-4"></i>
+    </button>
+    <div class="submenu <%= warehouseGroup ? "" : "hidden" %> ml-4 mt-1 space-y-1">
+        <a href="<%= cp %>/hq/warehouse/warehouse-receive.jsp" class="block px-4 py-2 rounded-lg text-sm <%= warehouseReceiveActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">본사 물류창고 입고</a>
+        <a href="<%= cp %>/hq/warehouse/warehouse-release.jsp" class="block px-4 py-2 rounded-lg text-sm <%= warehouseReleaseActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">본사 물류창고 출고</a>
+        <a href="<%= cp %>/hq/warehouse/warehouse-expiry-tracking.jsp" class="block px-4 py-2 rounded-lg text-sm <%= warehouseExpiryActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">유통기한 조회</a>
+        <a href="<%= cp %>/hq/warehouse/warehouse-items.jsp" class="block px-4 py-2 rounded-lg text-sm <%= warehouseItemsActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">물류창고 내 품목</a>
+    </div>
+
+    <button onclick="toggleMenu(this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg <%= placeOrderGroup ? "bg-gray-100 text-gray-700" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-file-invoice w-5 h-5"></i>
+            <span class="text-sm">발주 관리</span>
+        </div>
+        <i class="fas <%= placeOrderGroup ? "fa-chevron-down" : "fa-chevron-right" %> w-4 h-4"></i>
+    </button>
+    <div class="submenu <%= placeOrderGroup ? "" : "hidden" %> ml-4 mt-1 space-y-1">
+        <a href="<%= cp %>/hq/place_order/order-requests-dashboard.jsp" class="block px-4 py-2 rounded-lg text-sm <%= orderDashboardActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">발주 요청 취합 및 조회</a>
+        <a href="<%= cp %>/hq/place_order/order-requests-management.jsp" class="block px-4 py-2 rounded-lg text-sm <%= orderManagementActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">발주 요청 승인/반려</a>
+        <a href="<%= cp %>/hq/place_order/order-item-limits.jsp" class="block px-4 py-2 rounded-lg text-sm <%= orderLimitsActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">품목별 발주 수량 설정</a>
+    </div>
+
+    <button onclick="toggleMenu(this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg <%= salesGroup ? "bg-gray-100 text-gray-700" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-arrow-trend-up w-5 h-5"></i>
+            <span class="text-sm">매출 관리</span>
+        </div>
+        <i class="fas <%= salesGroup ? "fa-chevron-down" : "fa-chevron-right" %> w-4 h-4"></i>
+    </button>
+    <div class="submenu <%= salesGroup ? "" : "hidden" %> ml-4 mt-1 space-y-1">
+        <a href="<%= cp %>/hq/sales/sales-detail.jsp" class="block px-4 py-2 rounded-lg text-sm <%= salesDetailActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">직영점 매출 조회</a>
+        <a href="<%= cp %>/hq/sales/sales-ranking.jsp" class="block px-4 py-2 rounded-lg text-sm <%= salesRankingActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">매출 순위</a>
+        <a href="<%= cp %>/hq/sales/sales-headquarters.jsp" class="block px-4 py-2 rounded-lg text-sm <%= salesHeadquartersActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">본사 매출 조회</a>
+    </div>
+
+    <button onclick="toggleMenu(this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg <%= deliveryGroup ? "bg-gray-100 text-gray-700" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-truck w-5 h-5"></i>
+            <span class="text-sm">배송 관리</span>
+        </div>
+        <i class="fas <%= deliveryGroup ? "fa-chevron-down" : "fa-chevron-right" %> w-4 h-4"></i>
+    </button>
+    <div class="submenu <%= deliveryGroup ? "" : "hidden" %> ml-4 mt-1 space-y-1">
+        <a href="<%= cp %>/hq/delivery/delivery-inquiry.jsp" class="block px-4 py-2 rounded-lg text-sm <%= deliveryInquiryActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">배송 조회</a>
+        <a href="<%= cp %>/hq/delivery/dispatch-management.jsp" class="block px-4 py-2 rounded-lg text-sm <%= dispatchManagementActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">배차 관리</a>
+        <a href="<%= cp %>/hq/delivery/driver-vehicle-management.jsp" class="block px-4 py-2 rounded-lg text-sm <%= driverVehicleActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">기사/차량 관리</a>
+    </div>
+
+    <a href="<%= cp %>/hq/recipe/recipe-management.jsp" class="flex items-center gap-3 px-3 py-2.5 rounded-lg <%= recipeActive ? "bg-[#00853D] text-white font-medium" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <i class="fas fa-book w-5 h-5"></i>
+        <span class="text-sm">레시피 관리</span>
+    </a>
+
+    <button onclick="toggleMenu(this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg <%= supportGroup ? "bg-gray-100 text-gray-700" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-store w-5 h-5"></i>
+            <span class="text-sm">직영점 관리</span>
+        </div>
+        <i class="fas <%= supportGroup ? "fa-chevron-down" : "fa-chevron-right" %> w-4 h-4"></i>
+    </button>
+    <div class="submenu <%= supportGroup ? "" : "hidden" %> ml-4 mt-1 space-y-1">
+        <a href="<%= cp %>/hq/support/branch-search.jsp" class="block px-4 py-2 rounded-lg text-sm <%= branchSearchActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">직영점 조회</a>
+        <a href="<%= cp %>/hq/support/headquarters-notices.jsp" class="block px-4 py-2 rounded-lg text-sm <%= hqNoticesActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">공지사항</a>
+        <a href="<%= cp %>/hq/support/headquarters-inquiries.jsp" class="block px-4 py-2 rounded-lg text-sm <%= hqInquiriesActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">문의 게시판</a>
+    </div>
+
+    <button onclick="toggleMenu(this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg <%= hrGroup ? "bg-gray-100 text-gray-700" : "text-gray-700 hover:bg-gray-100" %> transition-colors">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-users w-5 h-5"></i>
+            <span class="text-sm">인사 및 권한 관리</span>
+        </div>
+        <i class="fas <%= hrGroup ? "fa-chevron-down" : "fa-chevron-right" %> w-4 h-4"></i>
+    </button>
+    <div class="submenu <%= hrGroup ? "" : "hidden" %> ml-4 mt-1 space-y-1">
+        <a href="<%= cp %>/hq/hr/hr-employee-inquiry.jsp" class="block px-4 py-2 rounded-lg text-sm <%= hrInquiryActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">본사/지점 직원 통합 조회</a>
+        <a href="<%= cp %>/hq/hr/permissions-account-management.jsp" class="block px-4 py-2 rounded-lg text-sm <%= permissionsActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">계정/권한 관리</a>
+        <a href="<%= cp %>/hq/hr/employee-schedule-management.jsp" class="block px-4 py-2 rounded-lg text-sm <%= employeeScheduleActive ? "bg-[#00853D] text-white font-medium" : "text-gray-600 hover:bg-gray-100" %>">직원 일정 관리</a>
+    </div>
+</nav>
+
